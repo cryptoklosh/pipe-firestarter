@@ -153,6 +153,7 @@ pub enum Commands {
     /// Create a new user
     NewUser {
         username: String,
+        password: String,
     },
 
     /// Login with username and password (JWT authentication)
@@ -3495,7 +3496,7 @@ pub async fn run_cli() -> Result<()> {
     */
 
     match cli.command {
-        Commands::NewUser { username } => {
+        Commands::NewUser { username, password } => {
             let req_body = CreateUserRequest {
                 username: username.clone(),
             };
@@ -3523,7 +3524,7 @@ pub async fn run_cli() -> Result<()> {
                 println!("\nSet a password for secure access (or press Enter to skip):");
                 println!("Note: Password is optional. You can use pipe without it.");
 
-                let password = rpassword::prompt_password("Password: ").unwrap_or_default();
+                // let password = rpassword::prompt_password("Password: ").unwrap_or_default();
 
                 if !password.is_empty() {
                     // User wants to set a password
